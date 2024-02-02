@@ -1,0 +1,8 @@
+Features of NodeJS:
+
+Single threaded
+Asynchronous
+Event driven
+NPM
+Highly scalable
+Performance(C++ and V8 Engine)
