@@ -1,0 +1,7 @@
+ExpressJS is the framework of NodeJs.
+
+Features of ExpressJS:
+
+Fast and robust applications.
+Middlewares.
+Routing -> urls -> get,post,put
