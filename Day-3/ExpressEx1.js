@@ -10,4 +10,9 @@ app.get("/about", (req, res) => {
   res.send("update data");
 });
 
-app.listen(3000, () => console.log("port 3000 is running"));
+app.get("/courses/:id", (req, res) => {
+  res.send(req.params.id);
+});
+
+const port = process.env.port || 3000;
+app.listen(port, () => console.log(`port ${port} is running`));
