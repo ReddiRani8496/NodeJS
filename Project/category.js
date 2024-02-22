@@ -1,14 +1,6 @@
 const express = require("express");
-const Joi = require("joi");
-const mongoose = require("mongoose");
-
+const { Category, validate } = require("./models/categorymodel");
 const router = express.Router();
-
-const categorySchema = new mongoose.Schema({
-  name: { type: String, required: true, minlength: 3, maxlength: 50 },
-});
-
-const Category = mongoose.model("Category", categorySchema);
 
 router.get("/api/category", async (req, res) => {
   try {
@@ -20,7 +12,7 @@ router.get("/api/category", async (req, res) => {
 });
 
 router.post("/api/category", async (req, res) => {
-  const { error } = validateData(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const newCategory = new Category({
@@ -69,12 +61,5 @@ router.get("/api/category/:id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
-function validateData(category) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-  });
-  return schema.validate(category);
-}
 
 module.exports = router;

@@ -1,16 +1,7 @@
 const express = require("express");
-const Joi = require("joi");
-const mongoose = require("mongoose");
-
 const router = express.Router();
 
-const studentSchema = new mongoose.Schema({
-  name: { type: String, required: true, minlength: 3, maxlength: 50 },
-  isEnrolled: { type: Boolean, default: false },
-  phone: { type: String, required: true, minlength: 10, maxlength: 25 },
-});
-
-const Student = mongoose.model("Student", studentSchema);
+const { Student, validate } = require("./models/studentmodel");
 
 router.get("/api/student", async (req, res) => {
   try {
@@ -22,7 +13,7 @@ router.get("/api/student", async (req, res) => {
 });
 
 router.post("/api/student", async (req, res) => {
-  const { error } = validateData(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const newStudent = new Student({
@@ -75,14 +66,5 @@ router.get("/api/student/:id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
-function validateData(student) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-    isEnrolled: Joi.boolean(),
-    phone: Joi.string().allow("").optional(), // Allow empty string or optional
-  });
-  return schema.validate(student);
-}
 
 module.exports = router;
