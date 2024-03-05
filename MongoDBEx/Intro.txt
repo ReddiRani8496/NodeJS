@@ -36,7 +36,7 @@ In MongoDB we have databases, inside the databases we have collections, inside t
 In MySQL we call record but in MongoDB we call it as collection.
 
 Example:
--------
+
 
 College is a database.
 Students, teachers, admin are collections.
@@ -73,5 +73,3 @@ We can perform crud operations in different ways:
                          db.collectionName.insertMany([{},{},{}]);
     
     -> updata data -> db.collectionName.updateOne({previous data},{$set:{updated data}}); or we can use update many 
-
-    -> delete data -> db.collectionName.deleteOne({id:50}); or go for deleteMany
